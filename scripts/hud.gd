@@ -12,7 +12,7 @@ func _on_bird_updated_score(new_score):
 # Roasts the player when they lose.
 func _on_bird_game_over_status_changed(dead):
 	game_over = dead
-	label.text = str("LOL GET REKT")
+	label.text = str("YOU LOSE!")
 
 # Resets the score to 0 on game restart.
 func _on_game_restarted():
