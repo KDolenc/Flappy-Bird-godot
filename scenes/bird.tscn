@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://lc1f78nohw1w"]
+
+[ext_resource type="Script" path="res://scripts/bird.gd" id="1_l4br1"]
+[ext_resource type="Texture2D" uid="uid://44734ysictpc" path="res://assets/sprites/bird.png" id="2_y4n4v"]
+[ext_resource type="AudioStream" uid="uid://dsosikrvbt6q5" path="res://assets/audio/flutter.wav" id="3_egdke"]
+[ext_resource type="AudioStream" uid="uid://hoo460ilxefl" path="res://assets/audio/point.wav" id="4_uq6s6"]
+[ext_resource type="AudioStream" uid="uid://btslnni2qksra" path="res://assets/audio/hit.wav" id="5_0yufh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0sia8"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57in0"]
+radius = 24.0
+
+[node name="Bird" type="CharacterBody2D"]
+z_index = 1
+script = ExtResource("1_l4br1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_y4n4v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0sia8")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_57in0")
+
+[node name="FlutterAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_egdke")
+
+[node name="PointAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_uq6s6")
+
+[node name="HitAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0yufh")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_pipe_collision"]

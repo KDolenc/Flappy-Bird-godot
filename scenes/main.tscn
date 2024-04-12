@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca6bbjqi35el8"]
+
+[ext_resource type="PackedScene" uid="uid://bx5uhkoqdrfb4" path="res://scenes/background_manager.tscn" id="1_bvimj"]
+[ext_resource type="PackedScene" uid="uid://lc1f78nohw1w" path="res://scenes/bird.tscn" id="1_gabc3"]
+[ext_resource type="PackedScene" uid="uid://cpeuo7msu2veu" path="res://scenes/pipe_manager.tscn" id="2_cmpvm"]
+[ext_resource type="PackedScene" uid="uid://bnb2d4a3a01nl" path="res://scenes/hud.tscn" id="4_te2fl"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Bird" parent="." instance=ExtResource("1_gabc3")]
+position = Vector2(96, 384)
+
+[node name="PipeManager" parent="." instance=ExtResource("2_cmpvm")]
+
+[node name="BackgroundManager" parent="." instance=ExtResource("1_bvimj")]
+
+[node name="HUD" parent="." instance=ExtResource("4_te2fl")]
+
+[connection signal="game_over_status_changed" from="Bird" to="PipeManager" method="_on_bird_game_over_status_changed"]
+[connection signal="game_over_status_changed" from="Bird" to="BackgroundManager" method="_on_bird_game_over_status_changed"]
+[connection signal="game_over_status_changed" from="Bird" to="HUD" method="_on_bird_game_over_status_changed"]
+[connection signal="game_restarted" from="Bird" to="PipeManager" method="_on_game_restarted"]
+[connection signal="game_restarted" from="Bird" to="HUD" method="_on_game_restarted"]
+[connection signal="updated_score" from="Bird" to="HUD" method="_on_bird_updated_score"]
+[connection signal="pipe_removed" from="PipeManager" to="Bird" method="_on_pipe_manager_pipe_removed"]
